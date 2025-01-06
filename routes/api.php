@@ -40,8 +40,7 @@ Route::post('login', [LoginController::class, 'loginis'])->name('login');
 // Auth middleware applied only to protected routes (no login check here)
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 Route::middleware(['role:admin'])->group( function () {
-});
-});
+
 
       // Category Start
       Route::resource('rahbariyatCategory', RahbariyatController::class); 
@@ -67,7 +66,8 @@ Route::middleware(['role:admin'])->group( function () {
     // sttingis start
    Route::delete('clear/{table}', [ClearController::class, 'clear']);
   
-
+  });
+});
 // front start
 
 Route::get('rahbariyat', [FrontController::class, 'rahbariyat']);
