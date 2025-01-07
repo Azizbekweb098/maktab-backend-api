@@ -8,10 +8,13 @@ use App\Http\Controllers\admin\Category\RahbariyatController;
 use App\Http\Controllers\admin\Category\TalimCategory;
 use App\Http\Controllers\admin\ClearController;
 use App\Http\Controllers\admin\DeleteTableController;
+use App\Http\Controllers\admin\RequestController;
+use App\Http\Controllers\admin\SettingsController;
 use App\Http\Controllers\admin\TalimPostController;
+
 use App\Http\Controllers\admin\WorkerController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\DatabaseSizeController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TelegramController;
@@ -19,6 +22,8 @@ use App\Http\Controllers\UserController;
 use App\Models\AxborotPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -39,9 +44,7 @@ Route::post('login', [LoginController::class, 'loginis'])->name('login');
 
 // Auth middleware applied only to protected routes (no login check here)
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
-Route::middleware(['role:admin'])->group( function () {
-
-
+});
       // Category Start
       Route::resource('rahbariyatCategory', RahbariyatController::class); 
       Route::resource('oqituvchilar', OqituvchilarCategory::class);
@@ -64,10 +67,13 @@ Route::middleware(['role:admin'])->group( function () {
     Route::resource('axborotPost', AxborotPostController::class);
     // Axborot End
     // sttingis start
+    Route::get('settings', [SettingsController::class, 'index']);
    Route::delete('clear/{table}', [ClearController::class, 'clear']);
+   Route::get('database-size', [DatabaseSizeController::class, 'database']);
+   Route::get('request', [RequestController::class, 'index']);
   
-  });
-});
+
+
 // front start
 
 Route::get('rahbariyat', [FrontController::class, 'rahbariyat']);
